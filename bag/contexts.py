@@ -12,7 +12,7 @@ def bag_contents(request):
 
     for item_id, quantity in bag.items():
         product = get_object_or_404(Product, pk=item_id)
-        total = quantity * product.price
+        total += quantity * product.price
         product_count += quantity
         bag_items.append({
             'item_id': item_id,
@@ -26,9 +26,9 @@ def bag_contents(request):
     else:
         delivery = 0
         free_delivery_delta = 0
-
+    
     grand_total = delivery + total
-
+    
     context = {
         'bag_items': bag_items,
         'total': total,
